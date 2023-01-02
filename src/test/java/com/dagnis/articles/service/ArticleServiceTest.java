@@ -53,7 +53,7 @@ class ArticleServiceTest {
         assertThat(savedArticleEntity.getContent()).isEqualTo(articleDto.getContent());
         assertThat(savedArticleEntity.getPublishDate()).isEqualTo(articleDto.getPublishDate());
     }
-    
+
     @Test
     void shouldGetListOfArticles() {
         var articleEntity1 = new ArticleEntity(1L, "title1", "author1", "content1", LocalDateTime.now().minusDays(2));
@@ -75,6 +75,13 @@ class ArticleServiceTest {
         assertThat(returnedArticles.getContent().get(1).getAuthor()).isEqualTo(articleEntity2.getAuthor());
         assertThat(returnedArticles.getContent().get(1).getContent()).isEqualTo(articleEntity2.getContent());
         assertThat(returnedArticles.getContent().get(1).getPublishDate()).isEqualTo(articleEntity2.getPublishDate());
+    }
+
+    @Test
+    void shouldGetCountByDay() {
+        articleService.getArticleCountForLast7Days();
+
+        verify(articleRepository).getCountByDay();
     }
 
 }
